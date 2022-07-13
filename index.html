@@ -19,11 +19,12 @@
 				if (nameUser) {
 					names.push(nameUser);
 				} else {
-					names.push("No Name")
+					names.push("Nick");
 				}
 			}
 		}
 		console.log(`Имена сотрудникв: ${names}`);
+        console.log("********************************************");
 
 		var team = createTeam(positions, names);
 		function createTeam(position, name) {
@@ -37,6 +38,7 @@
 			return team;
 		}
 		console.log("Team:" , team); 
+        console.log("********************************************");
 
 		setSalaries();	
 
@@ -52,19 +54,16 @@
 
 		function setSalaries() {
 			for (var i = 0; i < team.length; i++) {
-				if (team[i].name != "No Name") {
+				if (team[i].name != "Nick") {
 					team[i].salary = getSalary(team[i].position);
 				} else {
-					team[i].salary = "0"
+					team[i].salary = "0";
 				}
-				
 			}
 		}
 
 		function setSelfIntroducing() {
 			for (var i = 0; i < team.length; i++) {			
-				
-				
 				team[i].tellAboutYourSelf = function() {
 					console.log(`Меня зовут ${this.name} и я - ${this.position}. Я зарабатываю ${this.salary}$.`);
 				}
@@ -72,16 +71,17 @@
 					console.log(`${this.name} - ${this.position}. Зарплата - ${this.salary}$`);
 				}
 				team[i].showTeam();
-				
-			}
+            }
 		}
 
 		setSelfIntroducing();
+
 		var a = +prompt(`Введите номер сотрудника (от 1 до ${positions.length}):`, `1 - ${positions.length}`);
-        if (a <= team.length){
+
+        if (a <= team.length && a > 0){
             team[a - 1].tellAboutYourSelf();
         } else {
-            alert("Введен не верный номер сотрудника");
+            console.warn("Введен не верный номер сотрудника!!!");
         }
 		
 
