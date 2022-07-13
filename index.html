@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		var positions = ["Junior QA engineer", "Middle QA engineer", "Porduct owner", "Senior QA engineer", "Middle developer", "Project manager", "Senior developer", "Junior developer"];
+
+		var names = [];
+		getNames();
+		function getNames() {
+			for (var i = 0; i < positions.length; i++) {
+				var nameUser = prompt(`Введите имя на должность ${positions[i]}`);
+				if (nameUser) {
+					names.push(nameUser);
+				} else {
+					names.push("No Name")
+				}
+			}
+		}
+		console.log(`Имена сотрудникв: ${names}`);
+
+		var team = createTeam(positions, names);
+		function createTeam(position, name) {
+			var team = [];
+			for (var i = 0; i < names.length; i++) {
+				var obj = { name: "", position: "" };
+				obj.name = names[i];
+				obj.position = position[i];
+				team.push(obj);
+			}
+			return team;
+		}
+		console.log("Team:" , team); 
+
+		setSalaries();	
+
+		function getSalary(position) {
+			if (position.indexOf("Junior") == 0)
+				return Math.floor(Math.random() * (1000 - 500)) + 500;
+			if (position.indexOf("Middle") == 0)
+				return Math.floor(Math.random() * (2000 - 1500)) + 1500;
+			if (position.indexOf("Senior") == 0)
+				return Math.floor(Math.random() * (3000 - 2500)) + 2500;
+			return Math.floor(Math.random() * (4500 - 4000)) + 4000;
+		}
+
+		function setSalaries() {
+			for (var i = 0; i < team.length; i++) {
+				if (team[i].name != "No Name") {
+					team[i].salary = getSalary(team[i].position);
+				} else {
+					team[i].salary = "0"
+				}
+				
+			}
+		}
+
+		function setSelfIntroducing() {
+			for (var i = 0; i < team.length; i++) {			
+				
+				
+				team[i].tellAboutYourSelf = function() {
+					console.log(`Меня зовут ${this.name} и я - ${this.position}. Я зарабатываю ${this.salary}$.`);
+				}
+				team[i].showTeam = function() {
+					console.log(`${this.name} - ${this.position}. Зарплата - ${this.salary}$`);
+				}
+				team[i].showTeam();
+				
+			}
+		}
+
+		setSelfIntroducing();
+		var a = +prompt(`Введите номер сотрудника (от 1 до ${positions.length}):`, `1 - ${positions.length}`);
+        if (a <= team.length){
+            team[a - 1].tellAboutYourSelf();
+        } else {
+            alert("Введен не верный номер сотрудника");
+        }
+		
+
+	</script>
+
+
+
+</body>
+</html>
+
